@@ -1,0 +1,10 @@
+torch
+transformers
+accelerate
+huggingface
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+gradio
