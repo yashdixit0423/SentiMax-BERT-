@@ -56,33 +56,9 @@ sentiment-analysis/
 
 ---
 
-## ⚙️ Setup & Installation
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/your-username/sentiment-analysis.git
-cd sentiment-analysis
-```
-
-### 2. Install dependencies
-
-```bash
-pip install torch transformers pandas numpy matplotlib seaborn scikit-learn gradio accelerate
-```
-
-### 3. Add the dataset
-
-Place the `1429_1.csv` file in the root directory. The dataset should contain:
-- `reviews.text` — the review body
-- `reviews.title` — the review title
-- `reviews.rating` — star rating (1–5)
-
----
-
 ## 🚀 Usage
 
-### Option 1: Run the Notebook
+### Run the Notebook
 
 Open `sentiment.ipynb` in Jupyter and run all cells. The notebook walks through:
 1. Data loading & cleaning
@@ -94,7 +70,14 @@ Open `sentiment.ipynb` in Jupyter and run all cells. The notebook walks through:
 7. Inference & evaluation
 8. Gradio web UI
 
-### Option 2: Quick Inference (Python)
+---
+
+## 🔌 Deployable Inference Function
+
+Once the model is trained and saved, use the following function to predict sentiment on any review text. Load the model once and call `predict_sentiment()` as many times as needed.
+
+**Input:** A raw review string  
+**Output:** `"Positive"`, `"Neutral"`, or `"Negative"`
 
 ```python
 import torch
@@ -125,26 +108,10 @@ def predict_sentiment(review_text):
     label_map = {0: "Negative", 1: "Neutral", 2: "Positive"}
     return label_map[predicted_class]
 
-# Test it
+# Example
 print(predict_sentiment("This product is amazing!"))   # → Positive
 print(predict_sentiment("It was okay, not great."))    # → Neutral
 print(predict_sentiment("Worst purchase ever."))        # → Negative
-```
-
-### Option 3: Launch Gradio Web UI
-
-```python
-import gradio as gr
-
-iface = gr.Interface(
-    fn=predict_sentiment,
-    inputs=gr.Textbox(lines=3, placeholder="Enter a product review..."),
-    outputs="text",
-    title="BERT Sentiment Analysis",
-    description="Enter a review and see if it's Positive, Neutral, or Negative."
-)
-
-iface.launch(share=True)
 ```
 
 ---
@@ -169,31 +136,3 @@ iface.launch(share=True)
 - **Epochs**: 3
 - **Batch size**: 16
 - **Loss**: CrossEntropy
-
----
-
-## 📈 Visualization
-
-The notebook includes a bar chart comparing **Precision**, **Recall**, and **F1-Score** across all three sentiment classes, plotted with Matplotlib.
-
----
-
-## 🔧 Hardware Support
-
-The code automatically detects and uses the best available device:
-
-```
-CUDA (NVIDIA GPU) → Apple MPS (M1/M2 Mac) → CPU
-```
-
----
-
-## 📄 License
-
-This project is for educational and research purposes.
-
----
-
-## 🙋‍♂️ Author
-
-Built by **Yash** — feel free to open issues or submit PRs!
